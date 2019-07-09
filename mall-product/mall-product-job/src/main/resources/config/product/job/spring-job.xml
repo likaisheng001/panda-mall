@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:reg="http://www.dangdang.com/schema/ddframe/reg"
+       xmlns:job="http://www.dangdang.com/schema/ddframe/job"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+	http://www.dangdang.com/schema/ddframe/reg  
+    http://www.dangdang.com/schema/ddframe/reg/reg.xsd  
+    http://www.dangdang.com/schema/ddframe/job  
+    http://www.dangdang.com/schema/ddframe/job/job.xsd">
+    
+    <bean id="placeholderConfig2" class="com.chunbo.purchase.common.expand.PropertyPlaceholderConfigurerExpand">
+ 	 	<property name="order" value="2" />   
+    	<property name="ignoreUnresolvablePlaceholders" value="true" />   
+        <property name="locations">
+        	<array>
+            	<value>classpath:/spring-job.properties</value>
+        	</array>
+        </property>
+    </bean>
+    
+    <!-- 配置作业注册中心 -->
+    <!-- kaisheng01:101.200.37.71 -->
+    <reg:zookeeper id="regCenter" server-lists="101.200.37.71:2181" namespace="dd-job"  
+               base-sleep-time-milliseconds="1000" max-sleep-time-milliseconds="3000" max-retries="3" />  
+               
+    <!-- 配置作业 -->
+    <job:simple id="mySimpleJob" class="com.vulcan.product.job.MySimpleJob" registry-center-ref="regCenter"  
+                sharding-total-count="2" cron="0/2 * * * * ?" overwrite="true" />
+    
+</beans>
