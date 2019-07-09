@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    
+    <!-- dubbo服务提供方未提供consumer.xml， 在此添加  reference-->
+    <!-- 序列号生成服务 -->
+    <dubbo:reference id="idSeqService" interface="com.chunbo.id.generator.api.service.IdSeqService"  protocol="dubbo"/>
+    
+</beans>
